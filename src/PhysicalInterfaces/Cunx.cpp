@@ -43,6 +43,12 @@ Cunx::Cunx(std::shared_ptr<BaseLib::Systems::PhysicalInterfaceSettings> settings
 	signal(SIGPIPE, SIG_IGN);
 
 	_socket = std::unique_ptr<BaseLib::TcpSocket>(new BaseLib::TcpSocket(_bl));
+	
+	stackPrefix = "";
+	for(uint32_t i = 1; i < settings->stackPosition; i++)
+	{
+		stackPrefix.push_back('*');
+	}
 
 	if(settings->listenThreadPriority == -1)
 	{
