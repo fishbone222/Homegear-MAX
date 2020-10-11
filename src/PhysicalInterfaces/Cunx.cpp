@@ -90,8 +90,8 @@ void Cunx::sendPacket(std::shared_ptr<BaseLib::Systems::Packet> packet)
 
 		std::string packetHex = maxPacket->hexString();
 		if(_bl->debugLevel > 3) _out.printInfo("Info: Sending (" + _settings->id + ", WOR: " + (maxPacket->getBurst() ? "yes" : "no") + "): " + packetHex);
-		if(maxPacket->getBurst()) send("Zs" + packetHex + "\n");
-		else send("Zf" + packetHex + "\n");
+		if(maxPacket->getBurst()) send(stackPrefix + "Zs" + packetHex + "\n" + stackPrefix + "Zr\n");
+		else send(stackPrefix + "Zf" + packetHex + "\n" + stackPrefix + "Zr\n");
         if(maxPacket->getBurst()) std::this_thread::sleep_for(std::chrono::milliseconds(1100));
 		_lastPacketSent = BaseLib::HelperFunctions::getTime();
 	}
